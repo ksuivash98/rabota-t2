@@ -5,7 +5,7 @@ export default defineConfig({
   workers: 2,
   timeout: 90000,
   use: {
-    baseURL: "http://127.0.0.1:4180",
+    baseURL: "http://127.0.0.1:4180/rabota-t2/",
     trace: "retain-on-failure",
     launchOptions: process.env.CHROMIUM_PATH
       ? { executablePath: process.env.CHROMIUM_PATH }
@@ -25,7 +25,7 @@ export default defineConfig({
     },
   ],
   webServer: {
-    command: "npm run preview -- --port 4180",
+    command: "node tests/serve-pages.mjs",
     port: 4180,
     reuseExistingServer: false,
   },

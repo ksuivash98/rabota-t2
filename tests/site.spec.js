@@ -5,13 +5,17 @@ test("renders four salons, complete form and no horizontal overflow", async ({
 }) => {
   const errors = [];
   page.on("pageerror", (error) => errors.push(error.message));
-  await page.goto("/");
+  await page.goto("./");
   await expect(page.getByRole("heading", { level: 1 })).toContainText(
     "ТВОЯ КАРЬЕРА",
   );
   await expect(page.locator(".salon-card")).toHaveCount(4);
   await expect(page.locator("#salon option")).toHaveCount(5);
   await expect(page.locator(".benefit")).toHaveCount(6);
+  await expect(page.locator('.hero-art')).toHaveCSS('background-color', 'rgb(245, 245, 247)');
+  await expect(page.locator('.hero-buttons .button-pink')).toHaveCSS('background-color', 'rgb(255, 45, 141)');
+  expect(await page.evaluate(() => document.fonts.check('16px Manrope'))).toBe(true);
+  await expect(page.locator('script[type="module"]')).toHaveAttribute('src', /^\/rabota-t2\/assets\/.*\.js$/);
   for (const width of [320, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     expect(
@@ -24,7 +28,7 @@ test("renders four salons, complete form and no horizontal overflow", async ({
 });
 
 test("all salons transfer selection to the form", async ({ page }) => {
-  await page.goto("/");
+  await page.goto("./");
   for (const salon of ["tsum", "semya", "molodezhny", "millennium"]) {
     await page.locator(`[data-salon="${salon}"]`).click();
     await expect(page.locator("#salon")).toHaveValue(salon);
@@ -36,7 +40,7 @@ test("all salons transfer selection to the form", async ({ page }) => {
 test("validates fields and never sends personal data without a receiver", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("./");
   const outgoing = [];
   page.on("request", (request) => {
     if (["POST", "PUT", "PATCH"].includes(request.method()))
@@ -63,7 +67,7 @@ test("validates fields and never sends personal data without a receiver", async 
 test("benefits expand and journey supports keyboard navigation", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("./");
   await page.locator(".benefit summary").first().click();
   await expect(page.locator(".benefit").first()).toHaveAttribute("open", "");
   await page.locator("#step-1").focus();
@@ -85,7 +89,7 @@ test("mobile navigation closes on selection and Escape", async ({
   page,
 }, testInfo) => {
   test.skip(testInfo.project.name !== "mobile", "Mobile navigation only");
-  await page.goto("/");
+  await page.goto("./");
   const menu = page.getByRole("button", { name: "Открыть меню" });
   await menu.click();
   await expect(page.locator("#mobile-nav")).toBeVisible();
@@ -98,7 +102,7 @@ test("mobile navigation closes on selection and Escape", async ({
 });
 
 test("captures design for review", async ({ page }, testInfo) => {
-  await page.goto("/");
+  await page.goto("./");
   await page.evaluate(() => document.fonts.ready);
   await page.emulateMedia({ reducedMotion: "reduce" });
   await page.screenshot({
@@ -110,7 +114,7 @@ test("captures design for review", async ({ page }, testInfo) => {
 test("employer contacts use exact destinations without candidate data", async ({
   page,
 }) => {
-  await page.goto("/");
+  await page.goto("./");
   const max = page.locator("#max-contact");
   await expect(max).toHaveAttribute(
     "href",
