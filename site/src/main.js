@@ -37,14 +37,12 @@ window.matchMedia("(min-width: 761px)").addEventListener("change", (event) => {
   if (event.matches) closeMenu();
 });
 
-const arrowIcon =
-  '<svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M5 19 19 5M5 5h14v14"/></svg>';
 const salonSelect = document.querySelector("#salon");
 function syncSalonCards() {
   document.querySelectorAll("[data-salon]").forEach((button) => {
     const selected = button.dataset.salon === salonSelect.value;
     button.closest(".salon-card").classList.toggle("is-selected", selected);
-    button.innerHTML = `${selected ? "Салон выбран" : "Выбрать салон"} <span aria-hidden="true">${selected ? "✓" : arrowIcon}</span>`;
+    button.innerHTML = `${selected ? 'Салон выбран <span aria-hidden="true">✓</span>' : "Выбрать салон"}`;
   });
 }
 document.querySelectorAll("[data-salon]").forEach((button) => {
