@@ -272,7 +272,7 @@ h1 > span:first-of-type {
 .hero-art {
   position: relative;
   overflow: hidden;
-  background: var(--gray);
+  background: #fff;
   isolation: isolate;
   display: flex;
   align-items: center;
