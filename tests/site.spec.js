@@ -58,8 +58,13 @@ test("validates fields and never sends personal data without a receiver", async 
       outgoing.push(request.url());
   });
   await page.locator(".submit-button").click();
-  await expect(page.locator("#name")).toBeFocused();
-  await expect(page.locator('[aria-invalid="true"]')).toHaveCount(4);
+  await expect(page.locator("#surname")).toBeFocused();
+  await expect(page.locator('[aria-invalid="true"]')).toHaveCount(6);
+  await page.locator("#surname").fill("Иванова");
+  await page.locator("#age").fill("двадцать");
+  await page.locator(".submit-button").click();
+  await expect(page.locator("#age-error")).toContainText("целым числом");
+  await page.locator("#age").fill("23");
   await page.locator("#name").fill("Анна");
   await page.locator("#phone").fill("123");
   await page.locator("#salon").selectOption("semya");

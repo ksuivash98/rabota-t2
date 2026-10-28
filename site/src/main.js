@@ -139,16 +139,25 @@ function errorFor(field) {
   const value = field.value.trim();
   if (!value)
     return {
+      surname: "Укажи фамилию",
       name: "Укажи имя",
+      age: "Укажи возраст",
       phone: "Укажи номер телефона",
       salon: "Выбери один из четырёх салонов",
       time: "Выбери удобное время для связи",
     }[field.name];
   if (
-    field.name === "name" &&
+    ["name", "surname"].includes(field.name) &&
     (value.length < 2 || !/^[\p{L}\p{M}\s’'−-]+$/u.test(value))
   )
-    return "Укажи имя буквами, не менее двух символов";
+    return field.name === "surname"
+      ? "Укажи фамилию буквами, не менее двух символов"
+      : "Укажи имя буквами, не менее двух символов";
+  if (
+    field.name === "age" &&
+    (!/^\d{1,3}$/.test(value) || Number(value) < 1 || Number(value) > 120)
+  )
+    return "Укажи возраст целым числом от 1 до 120";
   if (
     field.name === "phone" &&
     (!/^[+\d\s()−-]+$/.test(value) ||

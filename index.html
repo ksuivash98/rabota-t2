@@ -19,7 +19,7 @@
     <meta property="og:type" content="website" />
     <title>Работа в t2 в Березниках — продавец-консультант без опыта</title>
     <link rel="icon" href="/rabota-t2/favicon.svg" type="image/svg+xml" />
-    <script type="module" crossorigin src="/rabota-t2/assets/index-CdbV3YpR.js"></script>
+    <script type="module" crossorigin src="/rabota-t2/assets/index-atUpYEGD.js"></script>
     <link rel="stylesheet" crossorigin href="/rabota-t2/assets/index-DFcU7zaL.css">
   </head>
   <body>
@@ -481,7 +481,7 @@
         </div>
         <div class="form-card">
           <div class="form-heading">
-            <h3>Заявка на собеседование</h3>
+            <h3>Анкета кандидата</h3>
             <p>Продавец-консультант · Березники</p>
           </div>
           <section class="employer-contacts" aria-labelledby="contact-title">
@@ -518,7 +518,21 @@
           </div>
           <form id="application-form" novalidate>
             <div class="field">
-              <label for="name">Как тебя зовут</label
+              <label for="surname">Фамилия</label>
+              <input
+                id="surname"
+                name="surname"
+                type="text"
+                autocomplete="family-name"
+                placeholder="Фамилия"
+                maxlength="80"
+                aria-describedby="surname-error"
+                required
+              />
+              <span class="field-error" id="surname-error"></span>
+            </div>
+            <div class="field">
+              <label for="name">Имя</label
               ><input
                 id="name"
                 name="name"
@@ -529,6 +543,23 @@
                 aria-describedby="name-error"
                 required
               /><span class="field-error" id="name-error"></span>
+            </div>
+            <div class="field">
+              <label for="age">Возраст</label>
+              <input
+                id="age"
+                name="age"
+                type="text"
+                inputmode="numeric"
+                placeholder="Полных лет"
+                maxlength="3"
+                aria-describedby="age-help age-error"
+                required
+              />
+              <span class="field-help" id="age-help"
+                >Укажи возраст полными годами</span
+              >
+              <span class="field-error" id="age-error"></span>
             </div>
             <div class="field">
               <label for="phone">Номер телефона</label
@@ -584,7 +615,7 @@
               type="submit"
               aria-describedby="integration-notice"
             >
-              ОТПРАВИТЬ ЗАЯВКУ
+              ОТПРАВИТЬ АНКЕТУ
             </button>
             <p
               id="form-status"
