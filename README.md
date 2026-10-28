@@ -55,6 +55,7 @@ npm test
 - `index.html`, `assets/` — готовая публикация для GitHub Pages.
 - `site/src/styles.css` — визуальная система, адаптивность и reduced motion.
 - `site/src/main.js` — меню, выбор салона, вкладки этапов и валидация.
+- `site/src/title-typing.js` — адаптация эффекта TextType: печать 50 мс, пауза 2 с, стирание 30 мс, курсор и кнопка паузы. Геометрия заголовка сохранена; reduced motion и отсутствие JavaScript показывают полный текст.
 - `tests/site.spec.js` — браузерные сценарии.
 - `tests/serve-pages.mjs` — статическая проверка публикации.
 - `scripts/sync-pages.mjs` — обновление файлов публикации после сборки.

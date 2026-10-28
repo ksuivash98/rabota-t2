@@ -12,10 +12,21 @@ test("renders four salons, complete form and no horizontal overflow", async ({
   await expect(page.locator(".salon-card")).toHaveCount(4);
   await expect(page.locator("#salon option")).toHaveCount(5);
   await expect(page.locator(".benefit")).toHaveCount(6);
-  await expect(page.locator('.hero-art')).toHaveCSS('background-color', 'rgb(255, 255, 255)');
-  await expect(page.locator('.hero-buttons .button-pink')).toHaveCSS('background-color', 'rgb(255, 45, 141)');
-  expect(await page.evaluate(() => document.fonts.check('16px Inter'))).toBe(true);
-  await expect(page.locator('script[type="module"]')).toHaveAttribute('src', /^\/rabota-t2\/assets\/.*\.js$/);
+  await expect(page.locator(".hero-art")).toHaveCSS(
+    "background-color",
+    "rgb(255, 255, 255)",
+  );
+  await expect(page.locator(".hero-buttons .button-pink")).toHaveCSS(
+    "background-color",
+    "rgb(255, 45, 141)",
+  );
+  expect(await page.evaluate(() => document.fonts.check("16px Inter"))).toBe(
+    true,
+  );
+  await expect(page.locator('script[type="module"]')).toHaveAttribute(
+    "src",
+    /^\/rabota-t2\/assets\/.*\.js$/,
+  );
   for (const width of [320, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });
     expect(
@@ -136,4 +147,52 @@ test("employer contacts use exact destinations without candidate data", async ({
       () => document.documentElement.scrollWidth <= innerWidth,
     ),
   ).toBe(true);
+});
+
+test("heading types and erases without a final period or layout shift", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("./");
+  const title = page.getByRole("heading", { level: 1 });
+  await expect(title).toHaveAccessibleName("ТВОЯ КАРЬЕРА НАЧИНАЕТСЯ ЗДЕСЬ");
+  await expect(title.locator(".title-line").last()).toHaveText("ЗДЕСЬ");
+  await page.evaluate(() => document.fonts.ready);
+  const initial = await title.boundingBox();
+  const visibleCount = () =>
+    title
+      .locator(".typing-char")
+      .evaluateAll(
+        (chars) =>
+          chars.filter(
+            (char) => getComputedStyle(char).visibility === "visible",
+          ).length,
+      );
+  const total = await title.locator(".typing-char").count();
+  await expect.poll(visibleCount).toBe(total);
+  await expect.poll(visibleCount, { timeout: 6000 }).toBeLessThan(total);
+  const during = await title.boundingBox();
+  expect(during.height).toBeCloseTo(initial.height);
+  expect(during.width).toBeCloseTo(initial.width);
+  await page.getByRole("button", { name: "Приостановить анимацию" }).click();
+  await expect.poll(visibleCount).toBe(total);
+  await expect(title.locator(".title-cursor")).toBeHidden();
+  await page.getByRole("button", { name: "Продолжить анимацию" }).click();
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await expect.poll(visibleCount).toBe(total);
+  await expect(page.locator(".title-motion-toggle")).toBeHidden();
+});
+
+test("heading is readable when JavaScript is disabled", async ({ browser }) => {
+  const context = await browser.newContext({ javaScriptEnabled: false });
+  const page = await context.newPage();
+  await page.goto("http://127.0.0.1:4180/rabota-t2/");
+  await expect(
+    page.getByRole("heading", {
+      name: "ТВОЯ КАРЬЕРА НАЧИНАЕТСЯ ЗДЕСЬ",
+      exact: true,
+    }),
+  ).toBeVisible();
+  await expect(page.locator("#hero-title")).toContainText("ЗДЕСЬ");
+  await context.close();
 });

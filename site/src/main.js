@@ -1,3 +1,4 @@
+import { initTitleTyping } from "./title-typing.js";
 import "@fontsource/inter/cyrillic-400.css";
 import "@fontsource/inter/latin-400.css";
 import "@fontsource/inter/cyrillic-600.css";
@@ -62,27 +63,27 @@ salonSelect.addEventListener("change", syncSalonCards);
 const steps = [
   {
     caption: "ПЕРВЫЙ КОНТАКТ",
-    title: "Всё начинается\nс твоего «привет».",
+    title: "Всё начинается\nс твоего «привет»",
     description:
-      "Напиши работодателю в MAX или позвони. Расскажи, какой салон тебе интересен, и договорись о собеседовании.",
+      "Напиши работодателю в MAX или позвони. Расскажи, какой салон тебе интересен, и договорись о собеседовании",
   },
   {
     caption: "ЗНАКОМСТВО",
-    title: "Поговорим\nо самом важном.",
+    title: "Поговорим\nо самом важном",
     description:
-      "Обсудим твои ожидания, задачи, график и условия оплаты. Задай все вопросы, чтобы понять, подходит ли тебе эта работа.",
+      "Обсудим твои ожидания, задачи, график и условия оплаты. Задай все вопросы, чтобы понять, подходит ли тебе эта работа",
   },
   {
     caption: "ПРОБУЕШЬ НА ПРАКТИКЕ",
-    title: "10 рабочих дней\nдля нового старта.",
+    title: "10 рабочих дней\nдля нового старта",
     description:
-      "Познакомься с работой салона на оплачиваемой стажировке. Условия оформления и оплаты необходимо согласовать с работодателем до её начала.",
+      "Познакомься с работой салона на оплачиваемой стажировке. Условия оформления и оплаты необходимо согласовать с работодателем до её начала",
   },
   {
     caption: "ТЫ В КОМАНДЕ",
-    title: "Включайся.\nЗдесь есть место тебе.",
+    title: "Включайся\nЗдесь есть место тебе",
     description:
-      "После согласования условий присоединяйся к команде. Помогай клиентам, узнавай новое о технологиях и развивай профессиональные навыки.",
+      "После согласования условий присоединяйся к команде. Помогай клиентам, узнавай новое о технологиях и развивай профессиональные навыки",
   },
 ];
 const tabs = [...document.querySelectorAll('[role="tab"]')];
@@ -135,22 +136,22 @@ function errorFor(field) {
   const value = field.value.trim();
   if (!value)
     return {
-      name: "Укажи имя.",
-      phone: "Укажи номер телефона.",
-      salon: "Выбери один из четырёх салонов.",
-      time: "Выбери удобное время для связи.",
+      name: "Укажи имя",
+      phone: "Укажи номер телефона",
+      salon: "Выбери один из четырёх салонов",
+      time: "Выбери удобное время для связи",
     }[field.name];
   if (
     field.name === "name" &&
     (value.length < 2 || !/^[\p{L}\p{M}\s’'−-]+$/u.test(value))
   )
-    return "Укажи имя буквами, не менее двух символов.";
+    return "Укажи имя буквами, не менее двух символов";
   if (
     field.name === "phone" &&
     (!/^[+\d\s()−-]+$/.test(value) ||
       !/^[78]\d{10}$/.test(value.replace(/\D/g, "")))
   )
-    return "Введи российский номер: +7 или 8 и ещё 10 цифр.";
+    return "Введи российский номер: +7 или 8 и ещё 10 цифр";
   return "";
 }
 function validateField(field) {
@@ -176,14 +177,14 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
   const results = fields.map(validateField);
   if (results.includes(false)) {
-    status.textContent = "Проверь отмеченные поля. Данные не отправлены.";
+    status.textContent = "Проверь отмеченные поля. Данные не отправлены";
     fields[results.indexOf(false)].focus();
     return;
   }
   // Deliberately no receiver, network request, local storage, or success state.
   // Do not enable submission before the employer, receiver and privacy terms are configured.
   status.textContent =
-    "Заявка не отправлена: автоматическая отправка ещё не подключена. Для записи напиши работодателю в MAX или позвони по номеру +7 (902) 800-88-02 — кнопки находятся над формой.";
+    "Заявка не отправлена: автоматическая отправка ещё не подключена. Для записи напиши работодателю в MAX или позвони по номеру +7 (902) 800-88-02 — кнопки находятся над формой";
 });
 const stickyApply = document.querySelector(".mobile-apply");
 new IntersectionObserver(
@@ -193,3 +194,5 @@ new IntersectionObserver(
   { threshold: 0.08 },
 ).observe(document.querySelector("#apply"));
 document.querySelector("#year").textContent = String(new Date().getFullYear());
+
+initTitleTyping();

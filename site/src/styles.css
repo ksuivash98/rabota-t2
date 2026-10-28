@@ -211,7 +211,7 @@ h1 {
   position: relative;
   white-space: nowrap;
 }
-h1 > span:first-of-type {
+.hero-title-accent {
   color: var(--pink);
 }
 .heading-arrow {
@@ -1803,5 +1803,44 @@ h2 {
   .salon-card h3,
   .salon-card p {
     font-size: 20px;
+  }
+}
+
+/* Keep full heading geometry while its characters are typed and erased. */
+.title-cursor {
+  position: absolute;
+  width: 0.045em;
+  height: 0.85em;
+  background: currentColor;
+  pointer-events: none;
+  animation: title-blink 1s ease-in-out infinite;
+}
+.title-motion-toggle {
+  color: var(--muted);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid currentColor;
+  padding: 5px 0;
+  font-size: 12px;
+  margin: -10px 0 18px;
+}
+@keyframes title-blink {
+  0%,
+  40%,
+  100% {
+    opacity: 1;
+  }
+  60%,
+  80% {
+    opacity: 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .title-cursor,
+  .title-motion-toggle {
+    display: none;
+  }
+  .typing-char {
+    visibility: visible !important;
   }
 }
