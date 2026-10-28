@@ -14,7 +14,7 @@ test("renders four salons, complete form and no horizontal overflow", async ({
   await expect(page.locator(".benefit")).toHaveCount(6);
   await expect(page.locator('.hero-art')).toHaveCSS('background-color', 'rgb(245, 245, 247)');
   await expect(page.locator('.hero-buttons .button-pink')).toHaveCSS('background-color', 'rgb(255, 45, 141)');
-  expect(await page.evaluate(() => document.fonts.check('16px Manrope'))).toBe(true);
+  expect(await page.evaluate(() => document.fonts.check('16px Inter'))).toBe(true);
   await expect(page.locator('script[type="module"]')).toHaveAttribute('src', /^\/rabota-t2\/assets\/.*\.js$/);
   for (const width of [320, 390, 768, 1024, 1440]) {
     await page.setViewportSize({ width, height: 900 });

@@ -9,7 +9,7 @@ createServer(async (request, response) => {
     response.writeHead(404).end(); return;
   }
   const name = pathname.slice('/rabota-t2/'.length) || 'index.html';
-  if (!['index.html', 'favicon.svg', 'manrope-OFL.txt'].includes(name) && !/^assets\/[\w.-]+$/.test(name)) {
+  if (!['index.html', 'favicon.svg', 'inter-OFL.txt'].includes(name) && !/^assets\/[\w.-]+$/.test(name)) {
     response.writeHead(404).end(); return;
   }
   try {

@@ -11,7 +11,7 @@ if (!html.includes('/rabota-t2/assets/') || html.includes('/src/main.js')) {
 await rm(new URL('assets/', root), { recursive: true, force: true });
 await mkdir(new URL('assets/', root), { recursive: true });
 await cp(new URL('assets/', output), new URL('assets/', root), { recursive: true });
-for (const name of ['index.html', 'favicon.svg', 'manrope-OFL.txt']) {
+for (const name of ['index.html', 'favicon.svg', 'inter-OFL.txt']) {
   await cp(new URL(name, output), new URL(name, root));
 }
 await writeFile(new URL('.nojekyll', root), '');
