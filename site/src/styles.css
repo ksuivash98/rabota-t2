@@ -456,14 +456,6 @@ h1 > span:first-of-type {
   color: var(--pink);
   font-weight: 400;
 }
-.art-coordinate {
-  position: absolute;
-  top: 30px;
-  left: 30px;
-  font-size: 16px;
-  line-height: 1.6;
-  letter-spacing: 1px;
-}
 .art-star {
   position: absolute;
   right: 35px;
@@ -1369,11 +1361,6 @@ h2 {
   .label-icon {
     font-size: 30px;
   }
-  .art-coordinate {
-    left: 6%;
-    top: 22px;
-    font-size: 14px;
-  }
   .art-index {
     font-size: 14px;
     bottom: 21px;
@@ -1809,3 +1796,15 @@ h2 {
 .hero-meta { flex-wrap: wrap; line-height: 1.6; }
 .section-top { flex-wrap: wrap; }
 .eyebrow, .section-aside, .salon-location, .fact-label { overflow-wrap: anywhere; }
+
+/* Salon names and addresses use the same typography. */
+.salon-card h3, .salon-card p {
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+  line-height: 1.4;
+  color: var(--black);
+}
+@media (max-width: 760px) {
+  .salon-card h3, .salon-card p { font-size: 20px; }
+}
