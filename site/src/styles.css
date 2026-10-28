@@ -92,7 +92,7 @@ summary:focus-visible,
   color: var(--pink);
 }
 .brand-caption {
-  font-size: 9px;
+  font-size: 18px;
   line-height: 1.6;
   letter-spacing: 1.1px;
   font-weight: 800;
@@ -189,7 +189,7 @@ summary:focus-visible,
   align-items: flex-start;
 }
 .eyebrow {
-  font-size: 10px;
+  font-size: 20px;
   font-weight: 800;
   letter-spacing: 1.5px;
   line-height: 1.7;
@@ -251,7 +251,7 @@ h1 > span:first-of-type {
   font-size: 20px;
 }
 .hero-meta {
-  font-size: 8px;
+  font-size: 16px;
   font-weight: 800;
   letter-spacing: 1px;
   display: flex;
@@ -379,7 +379,7 @@ h1 > span:first-of-type {
   margin: 13px 0;
 }
 .phone-kicker {
-  font-size: 6px;
+  font-size: 12px;
   letter-spacing: 1.2px;
 }
 .phone-headline {
@@ -400,7 +400,7 @@ h1 > span:first-of-type {
   margin-top: 22px;
 }
 .phone-bottom > span:first-child {
-  font-size: 6px;
+  font-size: 12px;
   line-height: 1.6;
   letter-spacing: 1px;
 }
@@ -416,7 +416,7 @@ h1 > span:first-of-type {
 .floating-label {
   position: absolute;
   z-index: 2;
-  font-size: 9px;
+  font-size: 18px;
   font-weight: 800;
   line-height: 1.6;
   letter-spacing: 0.5px;
@@ -460,7 +460,7 @@ h1 > span:first-of-type {
   position: absolute;
   top: 30px;
   left: 30px;
-  font-size: 8px;
+  font-size: 16px;
   line-height: 1.6;
   letter-spacing: 1px;
 }
@@ -474,7 +474,7 @@ h1 > span:first-of-type {
   position: absolute;
   bottom: 30px;
   right: 28px;
-  font-size: 8px;
+  font-size: 16px;
   letter-spacing: 1.5px;
   font-weight: 800;
 }
@@ -498,7 +498,7 @@ h1 > span:first-of-type {
   padding-right: 0;
 }
 .fact-label {
-  font-size: 8px;
+  font-size: 16px;
   letter-spacing: 1px;
   color: rgba(255, 255, 255, 0.7);
   font-weight: 700;
@@ -539,7 +539,7 @@ h1 > span:first-of-type {
   margin-bottom: 30px;
 }
 .section-aside {
-  font-size: 8px;
+  font-size: 16px;
   letter-spacing: 1px;
   font-weight: 700;
   color: var(--muted);
@@ -609,7 +609,7 @@ h2 {
   position: absolute;
   right: 0;
   top: 1px;
-  font-size: 10px;
+  font-size: 20px;
   color: var(--muted);
 }
 .benefit h3 {
@@ -685,7 +685,7 @@ h2 {
   padding-top: 105px;
 }
 .career-step > span {
-  font-size: 8px;
+  font-size: 16px;
   color: var(--pink);
   letter-spacing: 1px;
   font-weight: 800;
@@ -775,7 +775,7 @@ h2 {
   align-items: center;
 }
 .salon-location {
-  font-size: 9px;
+  font-size: 18px;
   font-weight: 700;
   letter-spacing: 1px;
 }
@@ -846,7 +846,7 @@ h2 {
     color 0.2s;
 }
 .step-tabs button > span {
-  font-size: 10px;
+  font-size: 20px;
   font-weight: 600;
 }
 .step-tabs button > b {
@@ -1135,7 +1135,7 @@ h2 {
     transform: rotate(12deg) scale(0.9);
   }
   .floating-label {
-    font-size: 8px;
+    font-size: 16px;
   }
   .label-top {
     right: 18px;
@@ -1162,7 +1162,7 @@ h2 {
     font-size: 23px;
   }
   .fact-label {
-    font-size: 7px;
+    font-size: 14px;
   }
   .section {
     padding: 75px 4%;
@@ -1269,7 +1269,7 @@ h2 {
     width: 100%;
   }
   .eyebrow {
-    font-size: 8px;
+    font-size: 16px;
     letter-spacing: 1.1px;
   }
   .little-star {
@@ -1306,7 +1306,7 @@ h2 {
   }
   .hero-meta {
     margin-top: 25px;
-    font-size: 7px;
+    font-size: 14px;
     gap: 7px;
     letter-spacing: 0.5px;
   }
@@ -1342,10 +1342,10 @@ h2 {
     font-size: 25px;
   }
   .phone-kicker {
-    font-size: 5px;
+    font-size: 10px;
   }
   .phone-bottom > span:first-child {
-    font-size: 5px;
+    font-size: 10px;
   }
   .phone-island {
     width: 65px;
@@ -1357,13 +1357,13 @@ h2 {
   .label-top {
     top: 55px;
     right: 7%;
-    font-size: 7px;
+    font-size: 14px;
     padding: 13px;
   }
   .label-bottom {
     bottom: 52px;
     left: 7%;
-    font-size: 7px;
+    font-size: 14px;
     padding: 12px 17px;
   }
   .label-icon {
@@ -1372,10 +1372,10 @@ h2 {
   .art-coordinate {
     left: 6%;
     top: 22px;
-    font-size: 7px;
+    font-size: 14px;
   }
   .art-index {
-    font-size: 7px;
+    font-size: 14px;
     bottom: 21px;
     right: 6%;
   }
@@ -1411,7 +1411,7 @@ h2 {
     border-bottom: 1px solid rgba(255, 255, 255, 0.18);
   }
   .fact-label {
-    font-size: 6px;
+    font-size: 12px;
     letter-spacing: 0.6px;
   }
   .fact p {
@@ -1435,7 +1435,7 @@ h2 {
     margin-bottom: 24px;
   }
   .section-aside {
-    font-size: 6px;
+    font-size: 12px;
     letter-spacing: 0.6px;
   }
   .section-heading {
@@ -1466,7 +1466,7 @@ h2 {
     font-size: 22px;
   }
   .card-number {
-    font-size: 8px;
+    font-size: 16px;
   }
   .benefit h3 {
     font-size: 16px;
@@ -1500,7 +1500,7 @@ h2 {
     padding-bottom: 0 !important;
   }
   .career-step > span {
-    font-size: 7px;
+    font-size: 14px;
   }
   .career-step h3 {
     font-size: 21px;
@@ -1552,7 +1552,7 @@ h2 {
     margin-bottom: 24px;
   }
   .salon-location {
-    font-size: 8px;
+    font-size: 16px;
   }
   .salon-marker {
     width: 34px;
@@ -1754,7 +1754,7 @@ h2 {
     font-size: 11px;
   }
   .fact-label {
-    font-size: 8px;
+    font-size: 16px;
     line-height: 1.6;
     display: block;
   }
@@ -1762,10 +1762,10 @@ h2 {
     font-size: 10px;
   }
   .eyebrow {
-    font-size: 9px;
+    font-size: 18px;
   }
   .hero-meta {
-    font-size: 8px;
+    font-size: 16px;
     flex-wrap: wrap;
   }
 }
@@ -1804,3 +1804,8 @@ h2 {
   font-size: 11px;
   color: var(--muted);
 }
+
+/* Larger captions wrap instead of squeezing into the previous small-text rows. */
+.hero-meta { flex-wrap: wrap; line-height: 1.6; }
+.section-top { flex-wrap: wrap; }
+.eyebrow, .section-aside, .salon-location, .fact-label { overflow-wrap: anywhere; }
