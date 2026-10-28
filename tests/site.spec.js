@@ -174,13 +174,21 @@ test("heading types and erases without a final period or layout shift", async ({
   const during = await title.boundingBox();
   expect(during.height).toBeCloseTo(initial.height);
   expect(during.width).toBeCloseTo(initial.width);
-  await page.getByRole("button", { name: "Приостановить анимацию" }).click();
+  await page
+    .locator('[aria-controls="hero-title"]')
+    .filter({ hasText: "Приостановить анимацию" })
+    .click();
   await expect.poll(visibleCount).toBe(total);
   await expect(title.locator(".title-cursor")).toBeHidden();
-  await page.getByRole("button", { name: "Продолжить анимацию" }).click();
+  await page
+    .locator('[aria-controls="hero-title"]')
+    .filter({ hasText: "Продолжить анимацию" })
+    .click();
   await page.emulateMedia({ reducedMotion: "reduce" });
   await expect.poll(visibleCount).toBe(total);
-  await expect(page.locator(".title-motion-toggle")).toBeHidden();
+  await expect(
+    page.locator('.title-motion-toggle[aria-controls="hero-title"]'),
+  ).toBeHidden();
 });
 
 test("heading is readable when JavaScript is disabled", async ({ browser }) => {
@@ -195,4 +203,107 @@ test("heading is readable when JavaScript is disabled", async ({ browser }) => {
   ).toBeVisible();
   await expect(page.locator("#hero-title")).toContainText("ЗДЕСЬ");
   await context.close();
+});
+
+test("possibilities heading unfolds on scroll and remains accessible", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("./");
+  const heading = page.getByRole("heading", {
+    name: "Есть контакт Есть перспективы",
+    exact: true,
+  });
+  await expect(heading).toHaveAttribute("data-fold-state", "waiting");
+  await page.evaluate(() => document.fonts.ready);
+  const before = await heading.boundingBox();
+  await heading.scrollIntoViewIfNeeded();
+  await expect(heading).toHaveAttribute("data-fold-state", "complete", {
+    timeout: 6000,
+  });
+  const after = await heading.boundingBox();
+  expect(after.height).toBeCloseTo(before.height);
+  expect(after.width).toBeCloseTo(before.width);
+  await expect(heading.locator(".pink-text")).toHaveCSS(
+    "color",
+    "rgb(255, 45, 141)",
+  );
+  await expect(heading.locator(".fold-piece").last()).toHaveCSS("opacity", "1");
+});
+
+test("fold heading respects reduced motion including preference changes", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("./");
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  const heading = page.locator("#possibilities-title");
+  await expect(heading).toHaveAttribute("data-fold-state", "complete");
+  await expect(heading.locator(".fold-piece").first()).toHaveCSS(
+    "opacity",
+    "1",
+  );
+  await page.reload();
+  await expect(heading).toHaveAttribute("data-fold-state", "complete");
+});
+
+test("growth heading draws contours then fills on scroll", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("./");
+  const heading = page.getByRole("heading", {
+    name: "Первый шаг — сегодня Дальше — больше",
+    exact: true,
+  });
+  await expect(heading).toHaveAttribute("data-stroke-state", "waiting");
+  await heading.scrollIntoViewIfNeeded();
+  await expect(heading).toHaveAttribute("data-stroke-state", "playing");
+  await expect(heading.locator(".stroke-overlay text").first()).toHaveAttribute(
+    "x",
+    /.+/,
+  );
+  const during = await heading.boundingBox();
+  await expect(heading).toHaveAttribute("data-stroke-state", "complete", {
+    timeout: 6000,
+  });
+  await expect(heading.locator(".stroke-source")).toHaveCSS("opacity", "1");
+  const after = await heading.boundingBox();
+  expect(after.width).toBeCloseTo(during.width);
+  expect(after.height).toBeCloseTo(during.height);
+});
+
+test("growth heading stays readable with reduced motion", async ({ page }) => {
+  await page.emulateMedia({ reducedMotion: "reduce" });
+  await page.goto("./");
+  await expect(page.locator("#growth-title")).toHaveAttribute(
+    "data-stroke-state",
+    "complete",
+  );
+  await expect(page.locator("#growth-title .stroke-overlay")).toHaveCount(0);
+});
+
+test("salon typing, journey folding and contact shine activate on view", async ({
+  page,
+}) => {
+  await page.emulateMedia({ reducedMotion: "no-preference" });
+  await page.goto("./");
+  const salon = page.getByRole("heading", {
+    name: "Твой город Твоё место",
+    exact: true,
+  });
+  await salon.scrollIntoViewIfNeeded();
+  await expect(salon.locator(".title-cursor")).toBeVisible();
+  await page.locator(".salons-motion-toggle").click();
+  await expect(salon.locator(".title-cursor")).toBeHidden();
+  const journey = page.locator("#journey-title");
+  await journey.scrollIntoViewIfNeeded();
+  await expect(journey).toHaveAttribute("data-fold-state", "complete", {
+    timeout: 6000,
+  });
+  const contact = page.locator("#contact-title-shine");
+  await contact.scrollIntoViewIfNeeded();
+  await expect(contact).toHaveAttribute("data-shine-state", "complete", {
+    timeout: 5000,
+  });
+  await expect(contact).toHaveText(/Давай\s*будем\s*на связи/);
+  await expect(contact.locator(".shine-layer")).toHaveCount(0);
 });

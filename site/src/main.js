@@ -1,3 +1,6 @@
+import { initShinyText } from "./shiny-text.js";
+import { initStrokeText } from "./stroke-text.js";
+import { initFoldText } from "./fold-text.js";
 import { initTitleTyping } from "./title-typing.js";
 import "@fontsource/inter/cyrillic-400.css";
 import "@fontsource/inter/latin-400.css";
@@ -196,3 +199,12 @@ new IntersectionObserver(
 document.querySelector("#year").textContent = String(new Date().getFullYear());
 
 initTitleTyping();
+
+initFoldText();
+
+initStrokeText();
+
+initTitleTyping("#salons-title", ".salons-motion-toggle");
+initFoldText("#journey-title");
+
+initShinyText();

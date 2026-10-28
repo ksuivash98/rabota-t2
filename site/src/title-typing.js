@@ -1,8 +1,11 @@
 // TextType-style typing, pause and backspace, adapted to the static site.
 // No layout changes or repeated screen-reader announcements while animating.
-export function initTitleTyping() {
-  const title = document.querySelector("#hero-title");
-  const toggle = document.querySelector(".title-motion-toggle");
+export function initTitleTyping(
+  titleSelector = "#hero-title",
+  toggleSelector = ".title-motion-toggle",
+) {
+  const title = document.querySelector(titleSelector);
+  const toggle = document.querySelector(toggleSelector);
   const motion = matchMedia("(prefers-reduced-motion: reduce)");
   const characters = [];
   title.querySelectorAll(".title-line").forEach((line) => {

@@ -7,7 +7,7 @@
   --pink: #ff2d8d;
   --pale: #ffe4f0;
   --gray: #f5f5f7;
-  --muted: rgba(11, 11, 15, 0.65);
+  --muted: var(--black);
 }
 * {
   box-sizing: border-box;
@@ -267,7 +267,7 @@ h1 {
 }
 .meta-divider {
   margin: 0 5px;
-  color: rgba(11, 11, 15, 0.3);
+  color: var(--black);
 }
 .hero-art {
   position: relative;
@@ -492,7 +492,7 @@ h1 {
 .fact-label {
   font-size: 16px;
   letter-spacing: 1px;
-  color: rgba(255, 255, 255, 0.7);
+  color: #fff;
   font-weight: 700;
 }
 .fact p {
@@ -507,7 +507,7 @@ h1 {
 }
 .fact small {
   font-size: 9px;
-  color: rgba(255, 255, 255, 0.65);
+  color: #fff;
   line-height: 1.6;
   display: block;
 }
@@ -655,7 +655,7 @@ h2 {
   color: var(--pink);
 }
 .growth .section-heading > p {
-  color: rgba(255, 255, 255, 0.65);
+  color: #fff;
 }
 .career-ladder {
   display: grid;
@@ -709,7 +709,7 @@ h2 {
 .career-step p {
   font-size: 11px;
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.6);
+  color: #fff;
   margin: 0;
   max-width: 210px;
 }
@@ -728,7 +728,7 @@ h2 {
 .growth-note p {
   font-size: 10px;
   line-height: 1.8;
-  color: rgba(255, 255, 255, 0.65);
+  color: #fff;
   margin: 0;
   max-width: 680px;
 }
@@ -983,7 +983,7 @@ h2 {
   padding-right: 24px;
 }
 .field input::placeholder {
-  color: rgba(11, 11, 15, 0.5);
+  color: var(--black);
 }
 .field input:focus,
 .field select:focus {
@@ -1053,7 +1053,7 @@ h2 {
   justify-content: space-between;
   gap: 20px;
   font-size: 9px;
-  color: rgba(255, 255, 255, 0.6);
+  color: #fff;
   line-height: 1.8;
 }
 .mobile-apply {
@@ -1844,3 +1844,98 @@ h2 {
     visibility: visible !important;
   }
 }
+
+/* FoldText: paper folds unfold from their top edge as the heading enters view. */
+.fold-word {
+  display: inline-block;
+  white-space: nowrap;
+}
+.fold-segment {
+  display: inline-block;
+  perspective: 700px;
+}
+.fold-piece {
+  display: inline-block;
+  transform-origin: 50% 0%;
+  backface-visibility: hidden;
+}
+.fold-pending .fold-piece {
+  opacity: 0;
+  transform: rotateX(-92deg);
+}
+@media (prefers-reduced-motion: reduce) {
+  .fold-piece {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
+#growth-title {
+  position: relative;
+}
+.stroke-active > .stroke-source {
+  opacity: 0;
+}
+.stroke-overlay {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  .stroke-overlay {
+    display: none;
+  }
+  .stroke-active > .stroke-source {
+    opacity: 1;
+  }
+}
+
+#salons-title {
+  position: relative;
+}
+.salons-motion-toggle {
+  display: block;
+  margin: 14px 0 0;
+}
+.salons-title-group {
+  min-width: 0;
+}
+
+#contact-title-shine {
+  position: relative;
+}
+.shine-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    120deg,
+    transparent 35%,
+    #ffe4f0 47%,
+    #fff 50%,
+    #ffe4f0 53%,
+    transparent 65%
+  );
+  background-size: 300% 100%;
+  background-position: 200% 0;
+  background-clip: text;
+  -webkit-background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+/* The overlay inherits each line's layout, while the original preserves contrast. */
+.apply-copy h2 > .shine-layer {
+  color: transparent;
+}
+@media (prefers-reduced-motion: reduce) {
+  .shine-layer {
+    display: none;
+  }
+}
+
+/* Stronger, readable labels across both light and dark sections. */
+.card-more { font-size: 18px; font-weight: 800; }
