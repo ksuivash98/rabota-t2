@@ -1,6 +1,6 @@
 import { test, expect } from "@playwright/test";
 
-test("renders four salons, complete form and no horizontal overflow", async ({
+test("renders four salons and contact links without horizontal overflow", async ({
   page,
 }) => {
   const errors = [];
@@ -10,7 +10,7 @@ test("renders four salons, complete form and no horizontal overflow", async ({
     "ТВОЯ КАРЬЕРА",
   );
   await expect(page.locator(".salon-card")).toHaveCount(4);
-  await expect(page.locator("#salon option")).toHaveCount(5);
+  await expect(page.locator("form, input, select")).toHaveCount(0);
   await expect(page.locator(".benefit")).toHaveCount(6);
   await expect(page.locator(".hero-art")).toHaveCSS(
     "background-color",
@@ -38,46 +38,16 @@ test("renders four salons, complete form and no horizontal overflow", async ({
   expect(errors).toEqual([]);
 });
 
-test("all salons transfer selection to the form", async ({ page }) => {
+test("salon selection opens direct contacts", async ({ page }) => {
   await page.goto("./");
   for (const salon of ["tsum", "semya", "molodezhny", "millennium"]) {
-    await page.locator(`[data-salon="${salon}"]`).click();
-    await expect(page.locator("#salon")).toHaveValue(salon);
-    await expect(page.locator("#name")).toBeFocused();
+    const button = page.locator(`[data-salon="${salon}"]`);
+    await button.click();
+    await expect(page.locator("#max-contact")).toBeFocused();
     await expect(page.locator(".salon-card.is-selected")).toHaveCount(1);
+    const name = await button.locator("..").locator("h3").textContent();
+    await expect(page.locator("#selected-salon")).toContainText(name);
   }
-});
-
-test("validates fields and never sends personal data without a receiver", async ({
-  page,
-}) => {
-  await page.goto("./");
-  const outgoing = [];
-  page.on("request", (request) => {
-    if (["POST", "PUT", "PATCH"].includes(request.method()))
-      outgoing.push(request.url());
-  });
-  await page.locator(".submit-button").click();
-  await expect(page.locator("#surname")).toBeFocused();
-  await expect(page.locator('[aria-invalid="true"]')).toHaveCount(6);
-  await page.locator("#surname").fill("Иванова");
-  await page.locator("#age").fill("двадцать");
-  await page.locator(".submit-button").click();
-  await expect(page.locator("#age-error")).toContainText("целым числом");
-  await page.locator("#age").fill("23");
-  await page.locator("#name").fill("Анна");
-  await page.locator("#phone").fill("123");
-  await page.locator("#salon").selectOption("semya");
-  await page.locator("#time").selectOption("evening");
-  await page.locator(".submit-button").click();
-  await expect(page.locator("#phone-error")).toContainText("российский номер");
-  await page.locator("#phone").fill("+7 (912) 123-45-67");
-  await page.locator(".submit-button").click();
-  await expect(page.locator("#form-status")).toContainText(
-    "Заявка не отправлена",
-  );
-  expect(outgoing).toEqual([]);
-  expect(await page.evaluate(() => localStorage.length)).toBe(0);
 });
 
 test("benefits expand and journey supports keyboard navigation", async ({
@@ -141,8 +111,6 @@ test("employer contacts use exact destinations without candidate data", async ({
   await expect(
     page.getByRole("link", { name: "+7 (902) 800-88-02", exact: true }),
   ).toHaveAttribute("href", "tel:+79028008802");
-  await page.locator("#name").fill("Анна");
-  await page.locator("#phone").fill("+7 (912) 123-45-67");
   expect(new URL(await max.getAttribute("href")).search).toBe("");
   await page.setViewportSize({ width: 320, height: 850 });
   await max.scrollIntoViewIfNeeded();

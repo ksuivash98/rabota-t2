@@ -922,17 +922,17 @@ h2 {
   font-size: 100px;
   font-weight: 400;
 }
-.form-card {
+.contact-card {
   background: white;
   padding: 35px;
   align-self: start;
 }
-.form-heading h3 {
+.contact-heading h3 {
   font-size: 21px;
   letter-spacing: -0.6px;
   margin: 0 0 9px;
 }
-.form-heading > p {
+.contact-heading > p {
   font-size: 11px;
   color: var(--muted);
   margin: 0 0 23px;
@@ -1177,13 +1177,13 @@ h2 {
     font-size: 11px;
     gap: 15px;
   }
-  .form-card {
+  .contact-card {
     padding: 28px;
   }
   .apply-section {
     gap: 5%;
   }
-  .form-heading h3 {
+  .contact-heading h3 {
     font-size: 19px;
   }
 }
@@ -1581,13 +1581,13 @@ h2 {
   .apply-stamp {
     display: none;
   }
-  .form-card {
+  .contact-card {
     padding: 25px 20px;
   }
-  .form-heading h3 {
+  .contact-heading h3 {
     font-size: 20px;
   }
-  .form-heading > p {
+  .contact-heading > p {
     font-size: 10px;
   }
   .field input,
@@ -1668,7 +1668,7 @@ h2 {
   .section-aside {
     display: none;
   }
-  .form-card {
+  .contact-card {
     padding: 23px 15px;
   }
   h2 {
@@ -1713,7 +1713,7 @@ h2 {
   .step-tabs button,
   .integration-notice p,
   .field label,
-  .form-heading > p {
+  .contact-heading > p {
     font-size: 12px;
   }
   .salon-card p {
@@ -1938,7 +1938,10 @@ h2 {
 }
 
 /* Stronger, readable labels across both light and dark sections. */
-.card-more { font-size: 18px; font-weight: 800; }
+.card-more {
+  font-size: 18px;
+  font-weight: 800;
+}
 
 /* Primary MAX contact: larger centered label with a soft persistent glow. */
 #max-contact {
@@ -1951,10 +1954,29 @@ h2 {
   letter-spacing: 0.6px;
   background: var(--pink);
   box-shadow: 0 0 18px rgba(255, 45, 141, 0.35);
-  transition: box-shadow 0.2s, transform 0.2s;
+  transition:
+    box-shadow 0.2s,
+    transform 0.2s;
 }
 #max-contact:hover,
 #max-contact:focus-visible {
   background: var(--pink);
   box-shadow: 0 0 28px rgba(255, 45, 141, 0.6);
+}
+
+.contact-card {
+  align-self: center;
+}
+.contact-card .employer-contacts {
+  border-bottom: 0;
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+.selected-salon {
+  font-size: 14px;
+  line-height: 1.8;
+  margin: 20px 0 0;
+}
+.selected-salon:empty {
+  display: none;
 }

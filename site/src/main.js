@@ -41,27 +41,20 @@ window.matchMedia("(min-width: 761px)").addEventListener("change", (event) => {
   if (event.matches) closeMenu();
 });
 
-const salonSelect = document.querySelector("#salon");
-function syncSalonCards() {
-  document.querySelectorAll("[data-salon]").forEach((button) => {
-    const selected = button.dataset.salon === salonSelect.value;
-    button.closest(".salon-card").classList.toggle("is-selected", selected);
-    button.innerHTML = `${selected ? 'Салон выбран <span aria-hidden="true">✓</span>' : "Выбрать салон"}`;
-  });
-}
 document.querySelectorAll("[data-salon]").forEach((button) => {
   button.addEventListener("click", () => {
-    salonSelect.value = button.dataset.salon;
-    salonSelect.dispatchEvent(new Event("change"));
-    document.querySelector("#apply").scrollIntoView({
-      behavior: window.matchMedia("(prefers-reduced-motion: reduce)").matches
-        ? "instant"
-        : "smooth",
+    document.querySelectorAll("[data-salon]").forEach((other) => {
+      const selected = other === button;
+      other.closest(".salon-card").classList.toggle("is-selected", selected);
+      other.textContent = selected ? "Салон выбран" : "Выбрать салон";
     });
-    document.querySelector("#name").focus({ preventScroll: true });
+    const card = button.closest(".salon-card");
+    document.querySelector("#selected-salon").textContent =
+      `Твой выбор: ${card.querySelector("h3").textContent} — ${card.querySelector("p").textContent}. Назови этот салон в MAX или при звонке`;
+    document.querySelector("#apply").scrollIntoView({ behavior: "instant" });
+    document.querySelector("#max-contact").focus({ preventScroll: true });
   });
 });
-salonSelect.addEventListener("change", syncSalonCards);
 
 const steps = [
   {
@@ -132,72 +125,6 @@ tabs.forEach((tab, index) => {
   });
 });
 
-const form = document.querySelector("#application-form");
-const status = document.querySelector("#form-status");
-const fields = [...form.querySelectorAll("input, select")];
-function errorFor(field) {
-  const value = field.value.trim();
-  if (!value)
-    return {
-      surname: "Укажи фамилию",
-      name: "Укажи имя",
-      age: "Укажи возраст",
-      phone: "Укажи номер телефона",
-      salon: "Выбери один из четырёх салонов",
-      time: "Выбери удобное время для связи",
-    }[field.name];
-  if (
-    ["name", "surname"].includes(field.name) &&
-    (value.length < 2 || !/^[\p{L}\p{M}\s’'−-]+$/u.test(value))
-  )
-    return field.name === "surname"
-      ? "Укажи фамилию буквами, не менее двух символов"
-      : "Укажи имя буквами, не менее двух символов";
-  if (
-    field.name === "age" &&
-    (!/^\d{1,3}$/.test(value) || Number(value) < 1 || Number(value) > 120)
-  )
-    return "Укажи возраст целым числом от 1 до 120";
-  if (
-    field.name === "phone" &&
-    (!/^[+\d\s()−-]+$/.test(value) ||
-      !/^[78]\d{10}$/.test(value.replace(/\D/g, "")))
-  )
-    return "Введи российский номер: +7 или 8 и ещё 10 цифр";
-  return "";
-}
-function validateField(field) {
-  const message = errorFor(field);
-  document.querySelector(`#${field.id}-error`).textContent = message;
-  field.setAttribute("aria-invalid", String(Boolean(message)));
-  return !message;
-}
-fields.forEach((field) => {
-  field.addEventListener("blur", () => {
-    if (field.value || field.getAttribute("aria-invalid") === "true")
-      validateField(field);
-  });
-  field.addEventListener(
-    field.tagName === "SELECT" ? "change" : "input",
-    () => {
-      if (field.getAttribute("aria-invalid") === "true") validateField(field);
-      status.textContent = "";
-    },
-  );
-});
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
-  const results = fields.map(validateField);
-  if (results.includes(false)) {
-    status.textContent = "Проверь отмеченные поля. Данные не отправлены";
-    fields[results.indexOf(false)].focus();
-    return;
-  }
-  // Deliberately no receiver, network request, local storage, or success state.
-  // Do not enable submission before the employer, receiver and privacy terms are configured.
-  status.textContent =
-    "Заявка не отправлена: автоматическая отправка ещё не подключена. Для записи напиши работодателю в MAX или позвони по номеру +7 (902) 800-88-02 — кнопки находятся над формой";
-});
 const stickyApply = document.querySelector(".mobile-apply");
 new IntersectionObserver(
   (entries) => {

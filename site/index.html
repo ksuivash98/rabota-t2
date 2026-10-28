@@ -344,8 +344,8 @@
             </button>
           </div>
           <p>
-            Выбери салон, в котором хочешь работать<br />Укажем его в твоей
-            заявке
+            Выбери салон, в котором хочешь работать<br />Обсудим его при
+            знакомстве
           </p>
         </div>
         <div class="salons-grid">
@@ -415,7 +415,7 @@
               aria-controls="step-panel"
               data-step="0"
             >
-              <span>01</span>Оставь заявку</button
+              <span>01</span>Свяжись с нами</button
             ><button
               id="step-2"
               role="tab"
@@ -477,9 +477,9 @@
           </p>
           <div class="apply-stamp" aria-hidden="true">t2</div>
         </div>
-        <div class="form-card">
-          <div class="form-heading">
-            <h3>Анкета кандидата</h3>
+        <div class="contact-card">
+          <div class="contact-heading">
+            <h3>Свяжись с командой</h3>
             <p>Продавец-консультант · Березники</p>
           </div>
           <section class="employer-contacts" aria-labelledby="contact-title">
@@ -506,127 +506,12 @@
               самостоятельно
             </p>
           </section>
-          <div class="integration-notice" id="integration-notice">
-            <span aria-hidden="true">ⓘ</span>
-            <p>
-              <strong>Автоматическая отправка анкеты пока недоступна</strong>
-              Для записи используй MAX или телефон выше. Данные из формы никуда
-              не отправляются и не сохраняются
-            </p>
-          </div>
-          <form id="application-form" novalidate>
-            <div class="field">
-              <label for="surname">Фамилия</label>
-              <input
-                id="surname"
-                name="surname"
-                type="text"
-                autocomplete="family-name"
-                placeholder="Фамилия"
-                maxlength="80"
-                aria-describedby="surname-error"
-                required
-              />
-              <span class="field-error" id="surname-error"></span>
-            </div>
-            <div class="field">
-              <label for="name">Имя</label
-              ><input
-                id="name"
-                name="name"
-                type="text"
-                autocomplete="given-name"
-                placeholder="Имя"
-                maxlength="80"
-                aria-describedby="name-error"
-                required
-              /><span class="field-error" id="name-error"></span>
-            </div>
-            <div class="field">
-              <label for="age">Возраст</label>
-              <input
-                id="age"
-                name="age"
-                type="text"
-                inputmode="numeric"
-                placeholder="Полных лет"
-                maxlength="3"
-                aria-describedby="age-help age-error"
-                required
-              />
-              <span class="field-help" id="age-help"
-                >Укажи возраст полными годами</span
-              >
-              <span class="field-error" id="age-error"></span>
-            </div>
-            <div class="field">
-              <label for="phone">Номер телефона</label
-              ><input
-                id="phone"
-                name="phone"
-                type="tel"
-                inputmode="tel"
-                autocomplete="tel"
-                placeholder="+7 (999) 123-45-67"
-                maxlength="24"
-                aria-describedby="phone-error"
-                required
-              /><span class="field-error" id="phone-error"></span>
-            </div>
-            <div class="field">
-              <label for="salon">В каком салоне хочешь работать</label
-              ><select
-                id="salon"
-                name="salon"
-                aria-describedby="salon-error"
-                required
-              >
-                <option value="">Выбери салон</option>
-                <option value="tsum">ТЦ ЦУМ — Пятилетки, 41</option>
-                <option value="semya">ТЦ Универсам Семья — Мира, 82</option>
-                <option value="molodezhny">
-                  ТЦ Молодёжный — Юбилейная, 26а
-                </option>
-                <option value="millennium">
-                  ТЦ Миллениум — Пятилетки, 87а
-                </option></select
-              ><span class="field-error" id="salon-error"></span>
-            </div>
-            <div class="field">
-              <label for="time">Когда удобно связаться</label
-              ><select
-                id="time"
-                name="time"
-                aria-describedby="time-error"
-                required
-              >
-                <option value="">Выбери время</option>
-                <option value="morning">Утром · 09:00–12:00</option>
-                <option value="afternoon">Днём · 12:00–17:00</option>
-                <option value="evening">Вечером · 17:00–20:00</option>
-                <option value="any">В любое время · 09:00–20:00</option></select
-              ><span class="field-help">По времени Березников (UTC+5)</span
-              ><span class="field-error" id="time-error"></span>
-            </div>
-            <button
-              class="button button-pink submit-button"
-              type="submit"
-              aria-describedby="integration-notice"
-            >
-              ОТПРАВИТЬ АНКЕТУ
-            </button>
-            <p
-              id="form-status"
-              class="form-status"
-              role="status"
-              aria-live="polite"
-            ></p>
-            <p class="privacy-note">
-              Перед открытием приёма заявок здесь появятся сведения о
-              работодателе, политика обработки персональных данных и условия
-              согласия
-            </p>
-          </form>
+          <p
+            id="selected-salon"
+            class="selected-salon"
+            role="status"
+            aria-live="polite"
+          ></p>
         </div>
       </section>
     </main>
